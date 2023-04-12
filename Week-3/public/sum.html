@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Assignment 3: Connect to Backend API by AJAX</title>
+  </head>
+  <body>
+    <h1>1+2+....+N</h1>
+    <label for="num-input">Enter a positive integer:</label>
+    <input type="number" id="num-input" />
+    <button id="calculate-btn">Calculate Sum</button>
+    <div id="result"></div>
+
+    <script>
+      const btn = document.getElementById('calculate-btn')
+      const numInput = document.getElementById('num-input')
+
+      btn.addEventListener('click', () => {
+        const number = Number(numInput.value)
+        const xhr = new XMLHttpRequest()
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status == 200) {
+            document.getElementById('result').innerHTML = xhr.responseText
+          }
+        }
+        xhr.open('GET', `/data?number=${number}`)
+        xhr.send()
+      })
+    </script>
+  </body>
+</html>
