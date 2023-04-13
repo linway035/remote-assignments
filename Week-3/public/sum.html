@@ -15,14 +15,22 @@
 
       btn.addEventListener('click', () => {
         const number = Number(numInput.value)
-        const xhr = new XMLHttpRequest()
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4 && xhr.status == 200) {
-            document.getElementById('result').innerHTML = xhr.responseText
-          }
-        }
-        xhr.open('GET', `/data?number=${number}`)
-        xhr.send()
+        //fetch promise寫法
+        fetch(`/data?number=${number}`)
+          .then((res) => res.text()) //因為是純文字，所以要用text()而不是json()
+          .then((data) => {
+            document.getElementById('result').innerHTML = data
+          })
+
+        // XMLHttpRequest 寫法
+        // const xhr = new XMLHttpRequest()
+        // xhr.onreadystatechange = function () {
+        //   if (xhr.readyState === 4 && xhr.status == 200) {
+        //     document.getElementById('result').innerHTML = xhr.responseText
+        //   }
+        // }
+        // xhr.open('GET', `/data?number=${number}`)
+        // xhr.send()
       })
     </script>
   </body>
